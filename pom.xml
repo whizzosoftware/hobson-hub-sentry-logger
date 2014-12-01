@@ -80,7 +80,7 @@
                 <extensions>true</extensions>
                 <configuration>
                     <instructions>
-                        <Import-Package>org.osgi.framework,org.osgi.service.event,org.apache.felix.dm.*,javax.servlet.*,org.apache.felix.webconsole,org.slf4j,ch.qos.logback.core.*,ch.qos.logback.classic.*,com.whizzosoftware.hobson.bootstrap.api.*,com.whizzosoftware.hobson.api.*</Import-Package>
+                        <Import-Package>org.osgi.framework,org.osgi.service.event,org.apache.felix.dm.*,javax.servlet.*,org.apache.felix.webconsole,org.slf4j,ch.qos.logback.core.*,ch.qos.logback.classic.*,com.whizzosoftware.hobson.api.*</Import-Package>
                         <Embed-Dependency>raven;scope=compile|runtime,raven-logback;scope=compile|runtime,guava;scope=compile|runtime,jackson-core;scope=compile|runtime</Embed-Dependency>
                         <Bundle-Activator>com.whizzosoftware.hobson.api.activator.HobsonBundleActivator</Bundle-Activator>
                         <Provide-Capability>hobson.plugin=com.whizzosoftware.hobson.sentry.SentryLoggerPlugin</Provide-Capability>

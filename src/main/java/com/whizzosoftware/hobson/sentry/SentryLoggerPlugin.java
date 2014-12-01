@@ -1,9 +1,8 @@
 package com.whizzosoftware.hobson.sentry;
 
+import com.whizzosoftware.hobson.api.config.ConfigurationPropertyMetaData;
 import com.whizzosoftware.hobson.api.plugin.AbstractHobsonPlugin;
-import com.whizzosoftware.hobson.bootstrap.api.config.ConfigurationMetaData;
-import com.whizzosoftware.hobson.bootstrap.api.plugin.PluginStatus;
-import com.whizzosoftware.hobson.bootstrap.api.util.LogUtil;
+import com.whizzosoftware.hobson.api.plugin.PluginStatus;
 import net.kencochrane.raven.DefaultRavenFactory;
 import net.kencochrane.raven.RavenFactory;
 import net.kencochrane.raven.logback.SentryAppender;
@@ -32,7 +31,7 @@ public class SentryLoggerPlugin extends AbstractHobsonPlugin {
     public void onStartup(Dictionary config) {
         logger.info("Starting Sentry logger service");
 
-        addConfigurationMetaData(new ConfigurationMetaData(PROP_DSN, "Sentry DSN", "Your Sentry DSN (e.g. https://cc4234234ba41242342cd:c135588a34324d43244g@app.getsentry.com/12345", ConfigurationMetaData.Type.STRING));
+        addConfigurationPropertyMetaData(new ConfigurationPropertyMetaData(PROP_DSN, "Sentry DSN", "Your Sentry DSN (e.g. https://cc4234234ba41242342cd:c135588a34324d43244g@app.getsentry.com/12345", ConfigurationPropertyMetaData.Type.STRING));
 
         // not sure why this is needed but Raven doesn't work properly without it
         RavenFactory.registerFactory(new DefaultRavenFactory());
@@ -43,7 +42,7 @@ public class SentryLoggerPlugin extends AbstractHobsonPlugin {
 
     @Override
     public void onShutdown() {
-        LogUtil.removeLogAppender(appender);
+        getHubManager().removeLogAppender(appender);
     }
 
     @Override
@@ -67,9 +66,9 @@ public class SentryLoggerPlugin extends AbstractHobsonPlugin {
     protected void createAppender(Dictionary config) {
         String newDsn = (String)config.get(PROP_DSN);
 
-        if (newDsn != null && (dsn == null || !newDsn.equals(dsn))) {
+        if (newDsn != null && newDsn.trim().length() > 0 && (dsn == null || !newDsn.equals(dsn))) {
             if (appender != null) {
-                LogUtil.removeLogAppender(appender);
+                getHubManager().removeLogAppender(appender);
             }
 
             dsn = newDsn;
@@ -78,7 +77,7 @@ public class SentryLoggerPlugin extends AbstractHobsonPlugin {
             appender = new SentryAppender();
             appender.setName("Sentry");
             appender.setDsn(dsn);
-            LogUtil.addErrorLogAppender(appender);
+            getHubManager().addErrorLogAppender(appender);
 
             setStatus(new PluginStatus(PluginStatus.Status.RUNNING));
         }
