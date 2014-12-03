@@ -84,6 +84,7 @@
                         <Embed-Dependency>raven;scope=compile|runtime,raven-logback;scope=compile|runtime,guava;scope=compile|runtime,jackson-core;scope=compile|runtime</Embed-Dependency>
                         <Bundle-Activator>com.whizzosoftware.hobson.api.activator.HobsonBundleActivator</Bundle-Activator>
                         <Provide-Capability>hobson.plugin=com.whizzosoftware.hobson.sentry.SentryLoggerPlugin</Provide-Capability>
+                        <Bundle-Category>hobson-plugin</Bundle-Category>
                     </instructions>
                 </configuration>
             </plugin>
