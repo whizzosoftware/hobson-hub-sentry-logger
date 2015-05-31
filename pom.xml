@@ -47,7 +47,7 @@
         <dependency>
             <groupId>com.whizzosoftware.hobson.hub</groupId>
             <artifactId>hobson-hub-api</artifactId>
-            <version>0.1.7-SNAPSHOT</version>
+            <version>0.2.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -102,12 +102,18 @@
     </build>
     <repositories>
         <repository>
+            <id>snapshots</id>
+            <url>http://oss.jfrog.org/artifactory/libs-snapshot</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+        </repository>
+        <repository>
+            <id>hobson-releases</id>
+            <url>http://dl.bintray.com/whizzosoftware/maven</url>
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
-            <id>hobson-releases</id>
-            <name>libs-release</name>
-            <url>http://dl.bintray.com/whizzosoftware/maven</url>
         </repository>
     </repositories>
     <scm>
